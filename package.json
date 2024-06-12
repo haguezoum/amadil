@@ -1,0 +1,26 @@
+{
+  "name": "amadil",
+  "version": "1.0.5",
+  "description": "this tool is folder managment for ft_transcendence to help you manage your folder and more !",
+  "main": "index.js",
+  "scripts": {},
+  "bin" :{
+    "azul" : "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haguezoum/amadil.git"
+  },
+  "keywords": [
+    "ft_transcendence",
+    "42",
+    "Network",
+    "1337"
+  ],
+  "author": "Hassan Aguezoum",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haguezoum/amadil/issues"
+  },
+  "homepage": "https://github.com/haguezoum/amadil#readme"
+}

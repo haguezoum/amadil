@@ -14,10 +14,10 @@ const rl = readline.createInterface({
 function askQuestion(question) {
   return new Promise((resolve, reject) => {
     rl.question(question, (answer) => {
-      if (validInput(answer)) {
+      if (validFolderName(answer)) {
         resolve(answer);
       } else {
-        reject(new Error("Invalid input"));
+        reject(new Error("Invalid input !"));
       }
     });
   });
@@ -27,50 +27,38 @@ function createFolder(folderName, createRouterFile)
 {
   if(fs.access(folderName, fs.constants.F_OK, (err) => 
   {
-    if (err === 'EEXIST') 
+    if (!err) 
     {
-      console.log('X : '+ err);
-      createFolder();
+      console.log(`Folder \x1b[31m${folderName}\x1b[0m already exists.`);
+      return;
     } 
     fs.mkdir(folderName, { recursive: true }, (err) => {
       if (err){
         console.error(err.message);
       }
-      else
-      {
         createSubfolderStructur(folderName, createRouterFile);
-      }
-      console.log('Folder created successfully!');
-      
-      
+        console.log('Folder created successfully!');
     });
   }));
-
 }
 
 async function __init__() {
   try
   {
-    const validAnwsers = ["yes", "y", "no", "n", "la", "oho", "nn", "ok"];
-
-    const folderName = await askQuestion("Enter the folder name: ");
-    let createRouterFile = await askQuestion("Do you want to start the Router file ? (yes / no) : ");
-    if(!validAnwsers.includes(createRouterFile.toLowerCase()))
-    {
-      console.error("only Yes(y) or No(n) !");
-      createRouterFile = await askQuestion("Do you want to start the Router file ? (yes / no) : ");
-    }
-    else
-      createFolder(folderName,true);
+    const folderName        = await askQuestion("Enter the folder name: ");
+    const createRouterFile  = await askQuestion("Do you want to start the Router file ? (yes / no) : ");
+    createFolder(folderName,createRouterFile.toLowerCase());
     rl.close();
   } 
   catch (error)
   {
-    console.error(error)
+    console.clear();
+    console.error(error.message);
+    __init__();
   }
 }
 
-function validInput(folderName)
+function validFolderName(folderName)
 {
   if (/^[^0-9][a-zA-Z]{1,}$/.test(folderName))
     return true;
@@ -78,10 +66,31 @@ function validInput(folderName)
     return false;
 }
 
+// function validRouterAnwser(answer)
+// {
+//   const validAnwsers = {
+//     "yes": true,
+//     "y": true,
+//     "ok": true,
+//     "no": false,
+//     "n": false,
+//     "la": false,
+//     "oho": false,
+//     "nn": false
+//   }
+//   if(!Object.keys(validAnwsers).includes(createRouterFile.toLowerCase()))
+//     {
+//       console.error("only Yes(y) or No(n) !");
+//       return false;
+//     }
+//     else
+//       return true;
+// }
+
 
 __init__();
 
-function createSubfolderStructur(parentFolder,router ) {
+function createSubfolderStructur(parentFolder, router) {
   try {
     fs.mkdirSync(parentFolder+"/backend");
     fs.mkdirSync(parentFolder+"/backend/"+parentFolder);
@@ -102,8 +111,7 @@ function createSubfolderStructur(parentFolder,router ) {
     fs.mkdirSync(parentFolder+"/frontend/src/services");
     fs.writeFileSync(parentFolder+"/frontend/src/App.js", "");
     fs.writeFileSync(parentFolder+"/frontend/src/index.js", "");
-      if(router)
-        fs.writeFileSync(parentFolder+"/frontend/src/router.js", "");
+      router ? fs.writeFileSync(parentFolder+"/frontend/src/router.js", ""):false;
   } catch (error) {
       console.log(error);
   }

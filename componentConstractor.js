@@ -5,15 +5,15 @@ const path = require('path');
 const componentName = process.argv[2];
  if(!componentName)
 { 
-  console.log('Usage: tran component <component_name>');
+  console.log('Usage:component <component_name>');
   return;
 }
 
   const componentTag = componentName.toLowerCase();
   const componentClassName = componentName.charAt(0).toUpperCase() + componentName.slice(1);
 
-  const templateDir = path.join(__dirname, 'templates');
-  const outputDir = path.join(__dirname, componentName);
+  const templateDir = path.join(process.cwd(), 'templates');
+  const outputDir = path.join(process.cwd(), componentName);
 
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir);

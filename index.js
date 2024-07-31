@@ -107,6 +107,7 @@ function createSubfolderStructur(parentFolder, router) {
     fs.mkdirSync(parentFolder+"/frontend/src/assets");
     fs.mkdirSync(parentFolder+"/frontend/src/components");
     fs.writeFileSync(parentFolder+"/frontend/src/components/NavBar.js", "");
+    fs.mkdirSync(parentFolder+"/frontend/src/templates");
     fs.mkdirSync(parentFolder+"/frontend/src/pages");
     fs.mkdirSync(parentFolder+"/frontend/src/services");
     fs.writeFileSync(parentFolder+"/frontend/src/App.js", "");

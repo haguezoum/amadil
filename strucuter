@@ -18,6 +18,8 @@ my_project/
 │   │   ├── assets/
 │   │   ├── components/
 │   │   │   └── NavBar.js
+│   │   ├── templates/
+│   │   │   └── NavBar.html
 │   │   ├── pages/
 │   │   │   ├── HomePage.js
 │   │   │   ├── AboutPage.js

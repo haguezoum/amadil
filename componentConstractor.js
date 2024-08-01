@@ -1,11 +1,19 @@
 #!/usr/bin/env node
 const fs = require('node:fs');
 const path = require('path');
+const initFiles =  require('./initFiles.js');
 
 const componentName = process.argv[2];
  if(!componentName)
-{ 
-  console.log('Usage:component <component_name>');
+  { 
+    console.log('Usage:component <component_name>');
+    return;
+  }
+
+  if(!componentName.includes('-'))
+  {
+    console.log('\x1b[36m%s\x1b[0m', 'Component name must be kebab-case');
+    console.log('Example: my-component');
     return;
   }
 
@@ -15,6 +23,7 @@ const componentName = process.argv[2];
     const jsTemplatePath   = path.join(__dirname, 'component-template.js');
     const outputDir = path.join(process.cwd(), 'frontend', 'src');
 
+    initFiles(componentName, componentTag);
     console.log(`htmlTemplatePath: ${htmlTemplatePath}`);
     console.log(`jsTemplatePath: ${jsTemplatePath}`);
     console.log(`outputDir: ${outputDir}`);

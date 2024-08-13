@@ -42,7 +42,7 @@ const componentName = process.argv[2];
 
   // Read and process JS template
   const jsTemplate = fs.readFileSync(jsTemplatePath, 'utf8')
-    .replace(/__COMPONENT_NAME__/g, componentClassName)
+    .replace(/__COMPONENT_NAME__/g, componentClassName.replace(/-/g, ''))
     .replace(/__COMPONENT_TAG__/g, componentTag);
 
   fs.writeFileSync(path.join(outputDir, 'components', `${componentName}.js`), jsTemplate);

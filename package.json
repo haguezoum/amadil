@@ -6,7 +6,8 @@
   "scripts": {},
   "bin" :{
     "start" : "./index.js",
-    "component" : "./componentConstractor.js"
+    "component" : "./componentConstractor.js",
+    "page" : "./pageConstractor.js"
   },
   "repository": {
     "type": "git",

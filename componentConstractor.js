@@ -17,34 +17,43 @@ const componentName = process.argv[2];
     return;
   }
 
-    const componentTag = componentName.toLowerCase();
-    const componentClassName = componentName.charAt(0).toUpperCase() + componentName.slice(1);
-    const htmlTemplatePath = path.join(__dirname, 'component-template.html');
-    const jsTemplatePath   = path.join(__dirname, 'component-template.js');
-    const outputDir = path.join(process.cwd(), 'frontend', 'src');
+  console.log(process.cwd());
+  console.log(path.relative(__dirname, process.cwd()));
+  // get the name of the parent folder
+ const parentFolder = path.basename(path.resolve('..'));
+ console.log(parentFolder);
+ 
+  return;
+  const componentTag = componentName.toLowerCase();
+  const componentClassName = componentName.charAt(0).toUpperCase() + componentName.slice(1);
+  const htmlTemplatePath = path.join(__dirname, 'component-template.html');
+  const jsTemplatePath   = path.join(__dirname, 'component-template.js');
+  const outputDir = path.resolve("..", "frontend", "src"); // should be the path to the frontend/src folder
 
-    initFiles(componentName, componentTag);
-    console.log(`htmlTemplatePath: ${htmlTemplatePath}`);
-    console.log(`jsTemplatePath: ${jsTemplatePath}`);
-    console.log(`outputDir: ${outputDir}`);
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir);
+  }
+  // Read and process HTML template
+  const htmlTemplate = fs.readFileSync(htmlTemplatePath, 'utf8')
+    .replace(/__COMPONENT_NAME__/g, componentClassName);
 
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir);
-    }
-    // Read and process HTML template
-    const htmlTemplate = fs.readFileSync(htmlTemplatePath, 'utf8')
-      .replace(/__COMPONENT_NAME__/g, componentClassName);
-
-      console.log(path.join(outputDir, 'templates',`${componentName}.html`));
-    
-    fs.writeFileSync(path.join(outputDir, 'templates',`${componentName}.html`), htmlTemplate);
-    // console.log(`Component ${componentName} created successfully!`);
+  fs.writeFileSync(path.join(__dirname,'frontend' ,'src' , 'templates',`${componentName}.html`),
+    htmlTemplate);
 
   // Read and process JS template
   const jsTemplate = fs.readFileSync(jsTemplatePath, 'utf8')
-    .replace(/__COMPONENT_NAME__/g, componentClassName.replace(/-/g, ''))
-    .replace(/__COMPONENT_TAG__/g, componentTag);
+  .replace(/__COMPONENT_NAME__/g, componentClassName.replace(/-/g, ''))
+  .replace(/__COMPONENT_TAG__/g, componentTag);
 
-  fs.writeFileSync(path.join(outputDir, 'components', `${componentName}.js`), jsTemplate);
+  fs.writeFileSync(path.join(outputDir, 'components',`${componentName}.js`),
+  jsTemplate);
 
   console.log(`Component ${componentName} created successfully!`);
+ 
+  /*
+    [-] Resolved the path to the frontend/src folder
+    [-] Read the HTML and JS templates
+    [-] Replaced placeholders in the templates with the component name and tag
+    [-] Wrote the processed templates to the frontend/src/templates and frontend/src/components directories
+    [-] Printed a success message to the console
+  */

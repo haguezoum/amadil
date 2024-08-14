@@ -1,15 +1,12 @@
 #!/usr/bin/env node
 const fs = require('node:fs');
 const readline = require('node:readline');
-const createRouterFile = require('./Router.js');
-let router = false;
-
+const path = require('node:path');
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
 
 function askQuestion(question) {
   return new Promise((resolve, reject) => {
@@ -37,6 +34,7 @@ function createFolder(folderName, createRouterFile)
         console.error(err.message);
       }
         createSubfolderStructur(folderName, createRouterFile);
+        projectData.folderName = folderName;
         console.log('Folder created successfully!');
     });
   }));
@@ -66,55 +64,32 @@ function validFolderName(folderName)
     return false;
 }
 
-// function validRouterAnwser(answer)
-// {
-//   const validAnwsers = {
-//     "yes": true,
-//     "y": true,
-//     "ok": true,
-//     "no": false,
-//     "n": false,
-//     "la": false,
-//     "oho": false,
-//     "nn": false
-//   }
-//   if(!Object.keys(validAnwsers).includes(createRouterFile.toLowerCase()))
-//     {
-//       console.error("only Yes(y) or No(n) !");
-//       return false;
-//     }
-//     else
-//       return true;
-// }
-
-
 __init__();
 
 function createSubfolderStructur(parentFolder, router) {
   try {
     fs.mkdirSync(parentFolder+"/backend");
-    fs.mkdirSync(parentFolder+"/backend/"+parentFolder);
-    fs.mkdirSync(parentFolder+"/backend/"+"apps");
-    fs.mkdirSync(parentFolder+"/backend/"+"static");
-    fs.mkdirSync(parentFolder+"/backend/"+"templates");
-    fs.writeFileSync(parentFolder+"/backend/manage.py", "");
-    fs.writeFileSync(parentFolder+"/backend/requirements.txt", "");
+    fs.mkdirSync(`${parentFolder}/backend/${parentFolder}`);
+    fs.mkdirSync(`${parentFolder}/backend/apps`);
+    fs.mkdirSync(`${parentFolder}/backend/static`);
+    fs.mkdirSync(`${parentFolder}/backend/templates`);
+    fs.writeFileSync(`${parentFolder}/backend/manage.py`, "");
+    fs.writeFileSync(`${parentFolder}/backend/requirements.txt`, "");
 
-    fs.mkdirSync(parentFolder+"/frontend");
-    fs.mkdirSync(parentFolder+"/frontend/public");
-    fs.writeFileSync(parentFolder+"/frontend/public/index.html", "");
-    fs.mkdirSync(parentFolder+"/frontend/src");
-    fs.mkdirSync(parentFolder+"/frontend/src/assets");
-    fs.mkdirSync(parentFolder+"/frontend/src/components");
-    fs.writeFileSync(parentFolder+"/frontend/src/components/NavBar.js", "");
-    fs.mkdirSync(parentFolder+"/frontend/src/templates");
-    fs.mkdirSync(parentFolder+"/frontend/src/pages");
-    fs.mkdirSync(parentFolder+"/frontend/src/services");
-    fs.writeFileSync(parentFolder+"/frontend/src/App.js", "");
-    fs.writeFileSync(parentFolder+"/frontend/src/index.js", "");
-      router ? fs.writeFileSync(parentFolder+"/frontend/src/router.js", ""):false;
+    fs.mkdirSync(`${parentFolder}/frontend`);
+    fs.mkdirSync(`${parentFolder}/frontend/public`);
+    fs.writeFileSync(`${parentFolder}/frontend/public/index.html`, "");
+    fs.mkdirSync(`${parentFolder}/frontend/src`);
+    fs.mkdirSync(`${parentFolder}/frontend/src/assets`);
+    fs.mkdirSync(`${parentFolder}/frontend/src/components`);
+    fs.writeFileSync(`${parentFolder}/frontend/src/components/NavBar.js`, "");
+    fs.mkdirSync(`${parentFolder}/frontend/src/templates`);
+    fs.mkdirSync(`${parentFolder}/frontend/src/pages`);
+    fs.mkdirSync(`${parentFolder}/frontend/src/services`);
+    fs.writeFileSync(`${parentFolder}/frontend/src/App.js`, "");
+    fs.writeFileSync(`${parentFolder}/frontend/src/index.js`, "");
+      router ? fs.writeFileSync(`${parentFolder}/frontend/src/router.js`, ""):false;
   } catch (error) {
       console.log(error);
   }
 }
-// module.exports = testNPM;

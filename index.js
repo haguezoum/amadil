@@ -34,7 +34,6 @@ function createFolder(folderName, createRouterFile)
         console.error(err.message);
       }
         createSubfolderStructur(folderName, createRouterFile);
-        projectData.folderName = folderName;
         console.log('Folder created successfully!');
     });
   }));

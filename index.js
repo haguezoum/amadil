@@ -1,15 +1,6 @@
 #!/usr/bin/env node
-// const fs = require('fs');
 const fs = require('node:fs').promises;
 const readline = require('node:readline');
-// const path = require('node:path');
-// if(!fsPromises)
-// {
-//   console.log('fs not found');
-//   return;
-// }else{
-//   console.log('fs found');
-// }
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -26,6 +17,24 @@ function askQuestion(question) {
       }
     });
   });
+}
+
+/*
+  after creating the folder structure, we need to create the templates of html and js files
+  its hard to access to the package that installed globaly in the machine to create component struct or templates struct
+  so we need to create templates in the base folder and copy them to the new folder
+  then we easily access to them and copy them to the new folder 
+  then remove the temporary folder
+*/
+async function creatTemplates(templateType, folderName)
+{
+  try {
+    await fs.mkdir(folderName, { recursive: true });
+    await fs.writeFile(`${e}index.html`, "");
+  } catch (error) {
+    console.error(error.message);
+  }
+  
 }
 
 async function createFolder(folderName, createRouterFile)
@@ -70,11 +79,8 @@ function validFolderName(folderName)
     return false;
 }
 
-__init__();
-
 async function createSubfolderStructur(parentFolder, router) {
   try {
-    // await fs.mkdir("dldl");
     await fs.mkdir(parentFolder+"/backend");
     await fs.mkdir(`${parentFolder}/backend/${parentFolder}`);
     await fs.mkdir(`${parentFolder}/backend/apps`);
@@ -83,20 +89,22 @@ async function createSubfolderStructur(parentFolder, router) {
     await fs.writeFile(`${parentFolder}/backend/manage.py`, "");
     await fs.writeFile(`${parentFolder}/backend/requirements.txt`, "");
 
-    fs.mkdir(`${parentFolder}/frontend`);
-    fs.mkdir(`${parentFolder}/frontend/public`);
-    fs.writeFile(`${parentFolder}/frontend/public/index.html`, "");
-    fs.mkdir(`${parentFolder}/frontend/src`);
-    fs.mkdir(`${parentFolder}/frontend/src/assets`);
-    fs.mkdir(`${parentFolder}/frontend/src/components`);
-    fs.writeFile(`${parentFolder}/frontend/src/components/NavBar.js`, "");
-    fs.mkdir(`${parentFolder}/frontend/src/templates`);
-    fs.mkdir(`${parentFolder}/frontend/src/pages`);
-    fs.mkdir(`${parentFolder}/frontend/src/services`);
-    fs.writeFile(`${parentFolder}/frontend/src/App.js`, "");
-    fs.writeFile(`${parentFolder}/frontend/src/index.js`, "");
+    await fs.mkdir(`${parentFolder}/frontend`);
+    await fs.mkdir(`${parentFolder}/frontend/public`);
+    await fs.writeFile(`${parentFolder}/frontend/public/index.html`, "");
+    await fs.mkdir(`${parentFolder}/frontend/src`);
+    await fs.mkdir(`${parentFolder}/frontend/src/assets`);
+    await fs.mkdir(`${parentFolder}/frontend/src/components`);
+    await fs.writeFile(`${parentFolder}/frontend/src/components/NavBar.js`, "");
+    await fs.mkdir(`${parentFolder}/frontend/src/templates`);
+    await fs.mkdir(`${parentFolder}/frontend/src/pages`);
+    await fs.mkdir(`${parentFolder}/frontend/src/services`);
+    await fs.writeFile(`${parentFolder}/frontend/src/App.js`, "");
+    await fs.writeFile(`${parentFolder}/frontend/src/index.js`, "");
       router ? fs.writeFile(`${parentFolder}/frontend/src/router.js`, ""):false;
   } catch (error) {
       console.log(error);
   }
 }
+
+__init__();

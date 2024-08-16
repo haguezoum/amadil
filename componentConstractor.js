@@ -18,10 +18,11 @@ const componentName = process.argv[2];
   }
 
   console.log(process.cwd());
-  console.log(path.relative(__dirname, process.cwd()));
-  // get the name of the parent folder
- const parentFolder = path.basename(path.resolve('..'));
- console.log(parentFolder);
+  console.log(path.join(process.cwd(), 'frontend', 'src'));
+  console.log(path.basename(process.cwd()));
+  console.log(__dirname);
+  console.log(path.join(__dirname, 'frontend', 'src'));
+  console.log(path.resolve("..", "frontend", "src"));
  
   return;
   const componentTag = componentName.toLowerCase();

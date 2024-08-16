@@ -1,5 +1,6 @@
 function createRouterFile(params) {
-    console.log('Hello ' + params+ ' from createRouterFile!');
+
+    // history.pushstat(params)
 }
 
 module.exports = createRouterFile;

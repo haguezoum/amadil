@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('node:fs').promises;
 const readline = require('node:readline');
+const path = require('path');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -46,6 +47,9 @@ async function createFolder(folderName, createRouterFile)
       try{
         await fs.mkdir(folderName, { recursive: true });
         createSubfolderStructur(folderName, createRouterFile);
+        process.env.componentName = folderName;
+        process.env.rootDir = path.join(process.cwd(), folderName);
+
         console.log('Folder created successfully!');
       }
       catch(error)
@@ -101,6 +105,8 @@ async function createSubfolderStructur(parentFolder, router) {
     await fs.mkdir(`${parentFolder}/frontend/src/services`);
     await fs.writeFile(`${parentFolder}/frontend/src/App.js`, "");
     await fs.writeFile(`${parentFolder}/frontend/src/index.js`, "");
+    await fs.writeFile(`${parentFolder}/frontend/src/App.css`, "");
+    await fs.appendFile(`${__dirname}/.env`, `${parentFolder.toUpperCase()}_PATH=${process.env.rootDir}\n`);
       router ? fs.writeFile(`${parentFolder}/frontend/src/router.js`, ""):false;
   } catch (error) {
       console.log(error);

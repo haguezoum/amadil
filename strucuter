@@ -26,6 +26,7 @@ my_project/
 │   │   │   ├── NotFoundPage.js
 │   │   ├── services/
 │   │   ├── App.js
+│   │   ├── App.css
 │   │   ├── index.js
 │   │   ├── router.js
 │   │   └── ...

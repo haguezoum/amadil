@@ -13,8 +13,7 @@ if(!componentName){
 }
 
 if(!componentName.includes('-')){
-  console.log('\x1b[36m%s\x1b[0m', 'Component name must be kebab-case');
-  console.log('Example: my-component');
+  console.log('\x1b[36m%s\x1b[0m', 'Component name must be kebab-case : <nav-bar>');
   return;
 }
 const componentTag = componentName.toLowerCase();
@@ -34,8 +33,7 @@ const parentDir = async () => {
     outputDir =  path.join(outputDir, 'frontend', 'src');
     fs.access(outputDir, fs.constants.F_OK, (err) => {
       if (err) {
-        console.log('\x1b[31m%s\x1b[0m', 'The frontend/src directory does not exist');
-        console.log('Run the command from the root of the project');
+        console.error('\x1b[31m%s\x1b[0m', 'The frontend/src directory does not exist');
         return;
       }
     });
@@ -48,6 +46,6 @@ const parentDir = async () => {
     await fs.writeFile(path.join(outputDir, 'components', `${componentName}.js`), processedJsTemplate);
     console.log(`Component ${componentName} created successfully!`);
   } catch (err) {
-    console.log(err);
+    console.err(err);
   }
 })();

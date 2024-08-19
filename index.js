@@ -106,7 +106,7 @@ async function createSubfolderStructur(parentFolder, router) {
     await fs.writeFile(`${parentFolder}/frontend/src/App.js`, "");
     await fs.writeFile(`${parentFolder}/frontend/src/index.js`, "");
     await fs.writeFile(`${parentFolder}/frontend/src/App.css`, "");
-    await fs.appendFile(`${__dirname}/.env`, `${parentFolder.toUpperCase()}_PATH=${process.env.rootDir}\n`);
+    await fs.writeFile(`${__dirname}/.env`, `${parentFolder.toUpperCase()}_PATH=${process.env.rootDir}\n`);
       router ? fs.writeFile(`${parentFolder}/frontend/src/router.js`, ""):false;
   } catch (error) {
       console.log(error);

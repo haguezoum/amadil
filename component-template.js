@@ -7,7 +7,7 @@ class __COMPONENT_NAME__ extends HTMLElement {
     
     async render(shadowRoot){
       try{
-        const response = await fetch('../templates/__COMPONENT_NAME__.html');
+        const response = await fetch('../templates/__COMPONENT_TAG__.html');
         const content = await response.text();
         const template = document.createElement('template');
         template.innerHTML = content;

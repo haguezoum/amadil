@@ -16,6 +16,9 @@ my_project/
 │   │
 │   ├── src/
 │   │   ├── assets/
+│   │   │   └── style/
+│   │   │       └── navbar.css
+│   │   │   └── media/
 │   │   ├── components/
 │   │   │   └── NavBar.js
 │   │   ├── templates/
@@ -37,5 +40,6 @@ my_project/
 │   ├── webpack.config.js
 │   └── ...
 │
+├── .config.dev.json
 ├── .gitignore
 └── README.md

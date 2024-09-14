@@ -100,7 +100,6 @@ async function createSubfolderStructur(parentFolder, router) {
     await fs.writeFile(`${parentFolder}/frontend/src/assets/style/normalize.css`, await fetch(normalizeCssPath).then(data =>{return data.text();}).then(res=>{return res}).catch(err=>{return "/*Error during the fetch normilze.css from https://necolas.github.io/normalize.css/*/"}));
     await fs.mkdir(`${parentFolder}/frontend/src/assets/media`);
     await fs.mkdir(`${parentFolder}/frontend/src/components`);
-    await fs.writeFile(`${parentFolder}/frontend/src/components/NavBar.js`, "");
     await fs.mkdir(`${parentFolder}/frontend/src/templates`);
     await fs.mkdir(`${parentFolder}/frontend/src/pages`);
     await fs.mkdir(`${parentFolder}/frontend/src/services`);

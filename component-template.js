@@ -1,17 +1,25 @@
+let template = document.createElement("template");
+
+template.innerHTML = '<div id="__COMPONENT_TAG__"> Hello from __COMPONENT_NAME__... </div>';
+
+
 class __COMPONENT_NAME__ extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    const shadow = this.attachShadow({ mode: 'open' });
+    shadow.appendChild(template.content.cloneNode(true));
+    const linkElem = document.createElement('link');
+    linkElem.setAttribute('rel', 'stylesheet');
+    linkElem.setAttribute('href', 'src/assets/style/__COMPONENT_TAG__.css');
+    shadow.appendChild(linkElem);
   }
 
-  async connectedCallback() {
-    console.log('Nav bar connected');
-    const templateContent = await this.fetchTemplate();
-    this.shadowRoot.innerHTML = templateContent;
+  connectedCallback() {
+    console.log("__COMPONENT_NAME__ is Connected");
   }
   
   async disconnectedCallback() {
-    console.log('Nav bar disconnected');
+    console.log('__COMPONENT_NAME__ is Disonnected');
   }
 
   static get observedAttributes() {
@@ -22,20 +30,7 @@ class __COMPONENT_NAME__ extends HTMLElement {
     // called when one of attributes listed above is modified
   }
 
-  async fetchTemplate() {
-  
-    return(
-    `
-    <style>
-        @import "../styles/__COMPONENT_TAG__.css";
-    </style>
-    <h1>
-      this is __COMPONENT_NAME__ component
-    </h1>
-    `
-    );
-  }
 }
-  customElements.define('__COMPONENT_TAG__', __COMPONENT_NAME__);
+customElements.define('__COMPONENT_TAG__', __COMPONENT_NAME__);
 
 export default __COMPONENT_NAME__;

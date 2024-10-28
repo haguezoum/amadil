@@ -17,7 +17,7 @@ const   jsTemplatePath = path.join(__dirname, 'component-template.js');
         } catch {
             await fs.mkdir(pagePath, { recursive: true });
         }
-        await fs.writeFile(path.join(projectPath, 'frontend/src/assets/style/', `${pageName}.css`), `/****** ${pageName}.css ******/`);
+        await fs.writeFile(path.join(projectPath, 'frontend/src/assets/style/', `${pageName.toLowerCase()}.css`), `/****** ${pageName}.css ******/`);
         const jsTemplate = await fs.readFile(jsTemplatePath, 'utf8');
         const processedJsTemplate = jsTemplate.replace(/__COMPONENT_NAME__/g, pageName).replace(/__COMPONENT_TAG__/g, `${pageName.toLowerCase()}-page`);
         await fs.writeFile(`${pagePath}/${pageName.toLowerCase()}.js`, processedJsTemplate);

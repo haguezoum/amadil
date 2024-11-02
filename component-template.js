@@ -6,12 +6,12 @@ template.innerHTML = '<div id="__COMPONENT_TAG__"> Hello from __COMPONENT_NAME__
 class __COMPONENT_NAME__ extends HTMLElement {
   constructor() {
     super();
-    const shadow = this.attachShadow({ mode: 'open' });
+    this.shadow = this.attachShadow({ mode: 'open' });
     shadow.appendChild(template.content.cloneNode(true));
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
     linkElem.setAttribute('href', 'src/assets/style/__COMPONENT_TAG__.css');
-    shadow.appendChild(linkElem);
+    this.shadow.appendChild(linkElem);
   }
 
   connectedCallback() {

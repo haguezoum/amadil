@@ -1,6 +1,6 @@
 let template = document.createElement("template");
 
-template.innerHTML = '<div id="__COMPONENT_TAG__"> Hello from __COMPONENT_NAME__... </div>';
+template.innerHTML = `<div id="__COMPONENT_TAG__"> Hello from __COMPONENT_NAME__... </div>`;
 
 
 class __COMPONENT_NAME__ extends HTMLElement {

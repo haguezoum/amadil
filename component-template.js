@@ -7,7 +7,7 @@ class __COMPONENT_NAME__ extends HTMLElement {
   constructor() {
     super();
     this.shadow = this.attachShadow({ mode: 'open' });
-    shadow.appendChild(template.content.cloneNode(true));
+    this.shadow.appendChild(template.content.cloneNode(true));
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
     linkElem.setAttribute('href', 'src/assets/style/__COMPONENT_TAG__.css');
@@ -18,7 +18,7 @@ class __COMPONENT_NAME__ extends HTMLElement {
     console.log("__COMPONENT_NAME__ is Connected");
   }
   
-  async disconnectedCallback() {
+  disconnectedCallback() {
     console.log('__COMPONENT_NAME__ is Disonnected');
   }
 

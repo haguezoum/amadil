@@ -56,4 +56,4 @@ then you can install it witout need a ```sudo permession``` !
 
   #### To Be Continued
 
-  [To Be Continued](https://i.kym-cdn.com/entries/icons/original/000/019/907/maxresdefault.jpg)
+[![](https://i.kym-cdn.com/entries/icons/original/000/019/907/maxresdefault.jpg)](https://i.kym-cdn.com/entries/icons/original/000/019/907/maxresdefault.jpg)

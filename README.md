@@ -16,26 +16,24 @@ To get started, simply install AMADIL and follow the instructions in the install
 npm i -g amadil
 ```
 
-if you use 42 Mac os (```you may need sudo permession```) you should install 42 wizzard :
+if you're using 42's macs you should install 42 wizzard:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/0xShady/42_wizzard/main/assistance/42-wizzard-installer.sh | zsh && source ~/.zshrc
 ```
 
-then :
+then:
 
 ```bash
 42 -node
 ```
 
-then you can install it witout need a ```sudo permession``` !
-
 ## Usage
 <br>
 
-#### 1. To starte the project
+#### 1. To start the project
    ```bash
-   strat 
+   start 
    ```
 - Then Enter the <project_name>
    ```bash
@@ -51,7 +49,7 @@ then you can install it witout need a ```sudo permession``` !
 ```bash
    page <page-name>
 ```
-  after generate a page ```AMADIL``` geraret a router for you , so you can navigate erectly to your page ```https::dev.com\<page_name>```
+  after generate a page ```AMADIL``` geraret a router for you , so you can navigate erectly to your page ```https://dev.com/<page_name>```
 
 
   #### To Be Continued

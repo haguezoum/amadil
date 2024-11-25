@@ -2,8 +2,17 @@
 const fs = require('node:fs').promises;
 const readline = require('node:readline');
 const path = require('path');
-const normalizeCssPath = "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+const { getRemoteFile } = require("./remoteGist.js");
 
+const normalizeCssPath = "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+const API_file = "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/e4ac9545a34432217e70ae4c95453b40ba796c5e/API.js";
+const State_file = "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/3c8865be74080e16bbceee95fedc8d1b125aa84f/State.js";
+const Router_file = "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/3c8865be74080e16bbceee95fedc8d1b125aa84f/Router.js";
+const routes_file = "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/3c8865be74080e16bbceee95fedc8d1b125aa84f/routes.js";
+const Appjs_file = "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/6e216c881bd10e1b428839a9534b6ab44d0ffc68/App.js";
+const htmlIndex_file  = "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/941d7697a86192db6872a3ea4a37a34121a065bc/index.html";
+const home_file = "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/941d7697a86192db6872a3ea4a37a34121a065bc/home.js";
+const routerLink_file = "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/941d7697a86192db6872a3ea4a37a34121a065bc/router-link.js";
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -21,25 +30,8 @@ function askQuestion(question) {
   });
 }
 
-/*
-  after creating the folder structure, we need to create the templates of html and js files
-  its hard to access to the package that installed globaly in the machine to create component struct or templates struct
-  so we need to create templates in the base folder and copy them to the new folder
-  then we easily access to them and copy them to the new folder 
-  then remove the temporary folder
-*/
-async function creatTemplates(templateType, folderName)
-{
-  try {
-    await fs.mkdir(folderName, { recursive: true });
-    await fs.writeFile(`${e}index.html`, "");
-  } catch (error) {
-    console.error(error.message);
-  }
-  
-} // we just insert the html insede the js "yekh" :((
 
-async function createFolder(folderName, createRouterFile)
+async function createFolder(folderName)
 {
   try {
     await fs.access(folderName, fs.constants.F_OK);
@@ -47,12 +39,13 @@ async function createFolder(folderName, createRouterFile)
   } catch (err) {
       try{
         await fs.mkdir(folderName, { recursive: true });
-        createSubfolderStructur(folderName, createRouterFile);
-        console.log('Folder created successfully!');
+        createSubfolderStructur(folderName);
+        console.log('✅ Folder created successfully!');
       }
       catch(error)
       {
         console.error(error.message);
+        process.exit(1);
       }
   }
 }
@@ -61,8 +54,8 @@ async function __init__() {
   try
   {
     const folderName        = await askQuestion("Enter the folder name: ");
-    const createRouterFile  = await askQuestion("Do you want to start the Router file ? (yes / no) : ");
-    createFolder(folderName,createRouterFile.toLowerCase());
+    // const createRouterFile  = await askQuestion("Do you want to start the Router file ? (yes / no) : ");
+    createFolder(folderName);
     rl.close();
   } 
   catch (error)
@@ -81,32 +74,28 @@ function validFolderName(folderName)
     return false;
 }
 
-async function createSubfolderStructur(parentFolder, router) {
+async function createSubfolderStructur(parentFolder) {
   try {
-    await fs.mkdir(parentFolder+"/backend");
-    await fs.mkdir(`${parentFolder}/backend/${parentFolder}`);
-    await fs.mkdir(`${parentFolder}/backend/apps`);
-    await fs.mkdir(`${parentFolder}/backend/static`);
-    await fs.mkdir(`${parentFolder}/backend/templates`);
-    await fs.writeFile(`${parentFolder}/backend/manage.py`, "");
-    await fs.writeFile(`${parentFolder}/backend/requirements.txt`, "");
-
     await fs.mkdir(`${parentFolder}/frontend`);
     await fs.mkdir(`${parentFolder}/frontend/public`);
-    await fs.writeFile(`${parentFolder}/frontend/public/index.html`, "");
+    getRemoteFile(htmlIndex_file, `${parentFolder}/frontend/public/index.html`);
     await fs.mkdir(`${parentFolder}/frontend/src`);
     await fs.mkdir(`${parentFolder}/frontend/src/assets`);
     await fs.mkdir(`${parentFolder}/frontend/src/assets/style`);
-    // await fs.mkdir(`${parentFolder}/frontend/src/assets/style/pages`);
-    // await fs.mkdir(`${parentFolder}/frontend/src/assets/style/components`);
     await fs.writeFile(`${parentFolder}/frontend/src/assets/style/normalize.css`, await fetch(normalizeCssPath).then(data =>{return data.text();}).then(res=>{return res}).catch(err=>{return "/*Error during the fetch normilze.css from https://necolas.github.io/normalize.css/*/"}));
     await fs.mkdir(`${parentFolder}/frontend/src/assets/media`);
     await fs.mkdir(`${parentFolder}/frontend/src/components`);
+    getRemoteFile(routerLink_file, `${parentFolder}/frontend/src/components/router-link.js`);
     await fs.mkdir(`${parentFolder}/frontend/src/templates`);
     await fs.mkdir(`${parentFolder}/frontend/src/pages`);
+    getRemoteFile(home_file, `${parentFolder}/frontend/src/pages/home.js`);
     await fs.mkdir(`${parentFolder}/frontend/src/services`);
-    await fs.writeFile(`${parentFolder}/frontend/src/App.js`, "");
-    await fs.writeFile(`${parentFolder}/frontend/src/index.js`, "");
+    getRemoteFile(API_file, `${parentFolder}/frontend/src/services/API.js`);
+    getRemoteFile(State_file, `${parentFolder}/frontend/src/services/State.js`);
+    getRemoteFile(Router_file, `${parentFolder}/frontend/src/services/Router.js`);
+    getRemoteFile(routes_file, `${parentFolder}/frontend/src/services/routes.js`);
+    getRemoteFile(Appjs_file, `${parentFolder}/frontend/src/App.js`);
+    await fs.writeFile(`${parentFolder}/frontend/src/index.js`, `import "./components/router-link.js";`);
     await fs.writeFile(`${parentFolder}/frontend/src/App.css`, "");
     await fs.writeFile(`${parentFolder}/.config.dev.json`,
     `
@@ -120,9 +109,8 @@ async function createSubfolderStructur(parentFolder, router) {
 }
     `
     );
-    router ? fs.writeFile(`${parentFolder}/frontend/src/router.js`, ""):false;
   } catch (error) {
-      console.log(error.message);
+      console.log("hers " + error.message);
       return;
   }
 }

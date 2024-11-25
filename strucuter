@@ -28,17 +28,22 @@ my_project/
 │   │   │   ├── AboutPage.js
 │   │   │   ├── NotFoundPage.js
 │   │   ├── services/
+│   │   │   └── API.js
+│   │   │   └── Router.js
+│   │   │   └── State.js
+│   │   │   └── routes.js
 │   │   ├── App.js
 │   │   ├── App.css
-│   │   ├── index.js
-│   │   ├── router.js
-│   │   └── ...
+│   │   └── index.js
 │   │
 │   ├── package.json
 │   ├── .babelrc
 │   ├── .eslintrc.js
 │   ├── webpack.config.js
-│   └── ...
+│   ├── .gitignore
+│   ├── .prettierrc
+│   ├── .prettierignore
+│   └── .env
 │
 ├── .config.dev.json
 ├── .gitignore

@@ -2,9 +2,7 @@
 const fs = require("node:fs").promises;
 const path = require("path");
 const { getConfig } = require("./finder.js");
-// const initFiles =  require('./initFiles.js');
 const componentName = process.argv[2];
-const envPath = path.join(__dirname, ".env");
 let outputDir;
 
 if (!componentName) {

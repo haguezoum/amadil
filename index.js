@@ -10,9 +10,9 @@ const API_file =
 const State_file =
   "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/3c8865be74080e16bbceee95fedc8d1b125aa84f/State.js";
 const Router_file =
-  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/3c8865be74080e16bbceee95fedc8d1b125aa84f/Router.js";
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/d64f95e9d6033cc6fca07e63058debebbd652337/Router.js";
 const routes_file =
-  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/3c8865be74080e16bbceee95fedc8d1b125aa84f/routes.js";
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/d64f95e9d6033cc6fca07e63058debebbd652337/routes.js";
 const Appjs_file =
   "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/6e216c881bd10e1b428839a9534b6ab44d0ffc68/App.js";
 const htmlIndex_file =

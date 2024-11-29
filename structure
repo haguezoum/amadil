@@ -1,14 +1,5 @@
 my_project/
 │
-├── backend/
-│   ├── my_project/
-│   ├── apps/
-│   ├── static/
-│   ├── templates/
-│   ├── manage.py
-│   ├── requirements.txt
-│   └── ...
-│
 ├── frontend/
 │   ├── public/
 │   │   ├── index.html
@@ -20,13 +11,10 @@ my_project/
 │   │   │       └── navbar.css
 │   │   │   └── media/
 │   │   ├── components/
-│   │   │   └── NavBar.js
-│   │   ├── templates/
-│   │   │   └── NavBar.html
+│   │   │   └── Example.js
 │   │   ├── pages/
 │   │   │   ├── HomePage.js
 │   │   │   ├── AboutPage.js
-│   │   │   ├── NotFoundPage.js
 │   │   ├── services/
 │   │   │   └── API.js
 │   │   │   └── Router.js

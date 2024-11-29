@@ -2,7 +2,6 @@
 const fs = require("node:fs").promises;
 const readline = require("node:readline");
 const { getRemoteFile } = require("./remoteGist.js");
-
 const normalizeCssPath =
   "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
 const API_file =
@@ -10,17 +9,26 @@ const API_file =
 const State_file =
   "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/3c8865be74080e16bbceee95fedc8d1b125aa84f/State.js";
 const Router_file =
-  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/d64f95e9d6033cc6fca07e63058debebbd652337/Router.js";
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/850ed28bcee8e630460ce11f851f5bdc6d76abcb/Router.js";
 const routes_file =
-  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/d64f95e9d6033cc6fca07e63058debebbd652337/routes.js";
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/d20a0c20752e9747c486bad8eb94968590205730/routes.js";
 const Appjs_file =
   "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/6e216c881bd10e1b428839a9534b6ab44d0ffc68/App.js";
 const htmlIndex_file =
   "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/941d7697a86192db6872a3ea4a37a34121a065bc/index.html";
 const home_file =
-  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/941d7697a86192db6872a3ea4a37a34121a065bc/home.js";
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/850ed28bcee8e630460ce11f851f5bdc6d76abcb/home.js";
 const routerLink_file =
-  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/941d7697a86192db6872a3ea4a37a34121a065bc/router-link.js";
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/850ed28bcee8e630460ce11f851f5bdc6d76abcb/router-link.js";
+const about_file =
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/c043d99cd457b08e65d9bd9c37882637dfa7403e/about.js";
+const about_file_css =
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/c043d99cd457b08e65d9bd9c37882637dfa7403e/about.css";
+const home_file_css =
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/c043d99cd457b08e65d9bd9c37882637dfa7403e/home.css";
+const routerLink_file_css =
+  "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/c043d99cd457b08e65d9bd9c37882637dfa7403e/router-link.css";
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -57,7 +65,6 @@ async function createFolder(folderName) {
 async function __init__() {
   try {
     const folderName = await askQuestion("Enter the folder name: ");
-    // const createRouterFile  = await askQuestion("Do you want to start the Router file ? (yes / no) : ");
     createFolder(folderName);
     rl.close();
   } catch (error) {
@@ -99,9 +106,21 @@ async function createSubfolderStructur(parentFolder) {
       routerLink_file,
       `${parentFolder}/frontend/src/components/router-link.js`
     );
-    await fs.mkdir(`${parentFolder}/frontend/src/templates`);
     await fs.mkdir(`${parentFolder}/frontend/src/pages`);
     getRemoteFile(home_file, `${parentFolder}/frontend/src/pages/home.js`);
+    getRemoteFile(about_file, `${parentFolder}/frontend/src/pages/about.js`);
+    getRemoteFile(
+      about_file_css,
+      `${parentFolder}/frontend/src/assets/style/about-page.css`
+    );
+    getRemoteFile(
+      home_file_css,
+      `${parentFolder}/frontend/src/assets/style/home-page.css`
+    );
+    getRemoteFile(
+      routerLink_file_css,
+      `${parentFolder}/frontend/src/assets/style/router-link.css`
+    );
     await fs.mkdir(`${parentFolder}/frontend/src/services`);
     getRemoteFile(API_file, `${parentFolder}/frontend/src/services/API.js`);
     getRemoteFile(State_file, `${parentFolder}/frontend/src/services/State.js`);
@@ -118,7 +137,16 @@ async function createSubfolderStructur(parentFolder) {
       `${parentFolder}/frontend/src/index.js`,
       `import "./components/router-link.js";`
     );
-    await fs.writeFile(`${parentFolder}/frontend/src/App.css`, "");
+    await fs.writeFile(
+      `${parentFolder}/frontend/src/App.css`,
+      `
+/* Add your global styles here */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}`
+    );
     await fs.writeFile(
       `${parentFolder}/.config.dev.json`,
       `
@@ -132,6 +160,12 @@ async function createSubfolderStructur(parentFolder) {
 }
     `
     );
+    getRemoteFile(
+      "https://gist.githubusercontent.com/haguezoum/2829f8d9058304a1843643357cacc094/raw/d20a0c20752e9747c486bad8eb94968590205730/runner.sh",
+      `${parentFolder}/runner.sh`
+    );
+    // run the runner script
+    // fs.chmod(`${parentFolder}/runner.sh`, 0o755);
   } catch (error) {
     console.log("hers " + error.message);
     return;

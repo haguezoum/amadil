@@ -1,6 +1,6 @@
 {
   "name": "amadil",
-  "version": "1.4.14",
+  "version": "1.4.15",
   "description": "this tool is folder managment for ft_transcendence to help you manage your folder and more !",
   "main": "index.js",
   "scripts": {},
